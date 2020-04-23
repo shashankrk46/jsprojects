@@ -30,46 +30,28 @@ function isValidPhone(phone) {
    const number=/^\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
    return number.test(parseInt(phone));
   }
+
+//  check required fields
+function checkRequired(input){
+    input.forEach(item => {
+       if(item.value.trim()===''){
+
+       showError(item,`${getFieldName(item)} is required`)
+       }else{
+           showSuccess(item)
+       }
+        });
+
+} 
+// get fieldname
+function getFieldName(item){
+    return item.id.charAt(0).toUpperCase()+item.id.slice(1);
+
+}
 // event listner
 form.addEventListener('submit',function(e){
     e.preventDefault();
 
-    if(username.value===''){
-        showError(username,'username is required');
-    }else{
-        showSuccess(username);
-    }
-
-    if(email.value===''){ 
-        showError(email,'email is required');
-        
-    }else if(!isValidEmail(email.value)){
-        showError(email,'valid email is required');
-    }
-    else{
-        showSuccess(email);
-    }
-
-    if(phone.value===''){ 
-        showError(phone,'phone number is required');
-    }
-    else if(!isValidPhone(phone.value)){
-        showError(phone,'please enter a valid phonenumber');
-
-    }
-    else{
-        showSuccess(phone);
-    }
-
-    if(password.value===''){ 
-        showError(password,'password is required');
-    }else{
-        showSuccess(password);
-    }
-    if(password2.value===''){ 
-        showError(password2,'re-enter password again');
-    }else{
-        showSuccess(password2);
-    }
-    
+   
+    checkRequired([username,email,phone,password,password2]);
 })
